@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loja Poliglota</title>
+  <meta name="description" content="Catálogo de produtos com pedido direto pelo WhatsApp.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="wrap">
+      <h1 class="marca" id="marca">Loja</h1>
+      <div class="busca">
+        <label class="sr" for="busca">Buscar produtos</label>
+        <input id="busca" type="search" placeholder="Buscar produtos" autocomplete="off">
+      </div>
+      <span class="espaco"></span>
+      <button class="btn btn-sacola" id="abrir-carrinho" aria-label="Abrir sacola">
+        Sacola <span class="badge" id="contador">0</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="filtros" id="filtros" aria-label="Categorias"></nav>
+
+  <main class="wrap">
+    <section id="recentes-secao" hidden>
+      <h2 class="secao">Vistos recentemente</h2>
+      <ul class="grade" id="recentes"></ul>
+    </section>
+
+    <h2 class="secao" id="titulo-lista">Produtos</h2>
+    <ul class="grade" id="lista"></ul>
+    <p class="vazio" id="vazio" hidden>Nenhum produto encontrado.</p>
+  </main>
+
+  <footer class="rodape">
+    <span id="fonte"></span>
+    · <a href="/admin.html">Área do administrador</a>
+  </footer>
+
+  <div class="fundo" id="fundo" hidden></div>
+  <aside class="gaveta" id="gaveta" role="dialog" aria-modal="true" aria-labelledby="gaveta-titulo" hidden>
+    <header>
+      <h2 id="gaveta-titulo">Sua sacola</h2>
+      <button class="btn" id="fechar-carrinho">Fechar</button>
+    </header>
+    <ul id="itens-carrinho"></ul>
+    <footer>
+      <div class="total"><span>Total</span><span id="total">R$ 0,00</span></div>
+      <p class="aviso" id="aviso" role="alert"></p>
+      <button class="btn btn-primario" id="comprar" disabled>Comprar pelo WhatsApp</button>
+    </footer>
+  </aside>
+
+  <dialog id="detalhe"></dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>

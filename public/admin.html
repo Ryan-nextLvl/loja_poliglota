@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administração</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="wrap">
+      <h1 class="marca">Administração</h1>
+      <span class="espaco" style="flex:1"></span>
+      <span id="usuario" class="pill" hidden></span>
+      <a class="btn" href="/">Ver loja</a>
+      <button class="btn" id="sair" hidden>Sair</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Login -->
+    <section id="tela-login" class="caixa login" hidden>
+      <h1>Entrar</h1>
+      <p class="card-cat">Acesso restrito ao administrador.</p>
+      <p class="msg erro" id="erro-login" role="alert" hidden></p>
+      <form id="form-login">
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" autocomplete="username" required>
+        </div>
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input id="senha" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn btn-primario" style="width:100%" id="entrar">Entrar</button>
+      </form>
+    </section>
+
+    <!-- Painel -->
+    <section id="tela-painel" hidden>
+      <div class="abas">
+        <button class="chip" data-aba="produtos" aria-pressed="true">Produtos</button>
+        <button class="chip" data-aba="pedidos" aria-pressed="false">Pedidos</button>
+      </div>
+
+      <div id="aba-produtos" class="painel" style="margin-top:16px">
+        <form id="form-produto" class="caixa" novalidate>
+          <h2 class="secao" id="titulo-form" style="margin-top:0">Novo produto</h2>
+          <p class="msg" id="msg-produto" role="status" hidden></p>
+          <input type="hidden" id="p-id">
+          <div class="campo">
+            <label for="p-nome">Nome</label>
+            <input id="p-nome" maxlength="120" required>
+          </div>
+          <div class="campo">
+            <label for="p-descricao">Descrição</label>
+            <textarea id="p-descricao" rows="3" maxlength="1000"></textarea>
+          </div>
+          <div class="duas">
+            <div class="campo">
+              <label for="p-preco">Preço (R$)</label>
+              <input id="p-preco" inputmode="decimal" placeholder="0,00" required>
+            </div>
+            <div class="campo">
+              <label for="p-estoque">Estoque</label>
+              <input id="p-estoque" type="number" min="0" step="1" value="0">
+            </div>
+          </div>
+          <div class="campo">
+            <label for="p-categoria">Categoria</label>
+            <input id="p-categoria" list="categorias" maxlength="40" placeholder="Ex.: Acessórios">
+            <datalist id="categorias"></datalist>
+          </div>
+          <div class="campo">
+            <label for="p-arquivo">Imagem</label>
+            <input id="p-arquivo" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+            <small>Envie um arquivo (até 2 MB) ou cole uma URL abaixo.</small>
+            <input id="p-imagem" inputmode="url" placeholder="https://… ou /uploads/…">
+          </div>
+          <div class="campo">
+            <label for="p-atributos">Atributos extras</label>
+            <textarea id="p-atributos" rows="3" placeholder="Cor: Preto&#10;Garantia: 12 meses"></textarea>
+            <small>Um por linha, no formato <code>nome: valor</code>. Cada produto pode ter campos diferentes.</small>
+          </div>
+          <div class="campo">
+            <label><input type="checkbox" id="p-ativo" checked> Visível no catálogo</label>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-primario" id="salvar" style="flex:1">Salvar produto</button>
+            <button type="button" class="btn" id="cancelar" hidden>Cancelar</button>
+          </div>
+        </form>
+
+        <div class="caixa rolagem">
+          <h2 class="secao" style="margin-top:0">Produtos cadastrados (MongoDB)</h2>
+          <table class="tabela">
+            <thead><tr><th></th><th>Produto</th><th>Preço</th><th>Estoque</th><th></th></tr></thead>
+            <tbody id="tabela-produtos"></tbody>
+          </table>
+          <p class="vazio" id="sem-produtos" hidden>Nenhum produto cadastrado.</p>
+        </div>
+      </div>
+
+      <div id="aba-pedidos" class="caixa rolagem" style="margin-top:16px" hidden>
+        <h2 class="secao" style="margin-top:0">Pedidos enviados ao WhatsApp (Supabase)</h2>
+        <table class="tabela">
+          <thead><tr><th>#</th><th>Data</th><th>Itens</th><th>Total</th></tr></thead>
+          <tbody id="tabela-pedidos"></tbody>
+        </table>
+        <p class="vazio" id="sem-pedidos" hidden>Nenhum pedido registrado ainda.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/admin.js"></script>
+</body>
+</html>
